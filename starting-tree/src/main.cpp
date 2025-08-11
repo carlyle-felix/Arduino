@@ -4,6 +4,7 @@
 #define OFF LOW
 #define NUM_FLASHES 3
 #define STAGE_TIME 2000
+#define MAX_REACT 3000
 
 void set_tree_state(uint8_t state);
 void reset_tree(void);
@@ -35,8 +36,6 @@ void loop()
 
   srand(analogRead(A0));
   ms = random(500, 700);
-  Serial.print("ms: ");
-  Serial.println(ms);
 
   sensor_state = digitalRead(sensor);
   if (!sensor_state) {
@@ -70,7 +69,8 @@ void reset_tree(void)
 
 uint8_t start_tree(uint16_t ms)
 {
-  uint32_t start_time = millis();
+  uint32_t start_time = millis(), leave_time;
+  uint16_t react;
 
   while (millis() - start_time < STAGE_TIME) {
     digitalWrite(s, OFF);
@@ -84,14 +84,34 @@ uint8_t start_tree(uint16_t ms)
   delay(500);
   digitalWrite(y, ON);
   delay(ms);
+  start_time = millis();
 
   digitalWrite(s, OFF);
   digitalWrite(y, OFF);
   if (digitalRead(sensor)) {
+    leave_time = millis();
     digitalWrite(r, ON);
   } else {
     digitalWrite(g, ON);
+    while (millis() - start_time < MAX_REACT) {
+      if (digitalRead(sensor)) {
+        break;
+      }
+    }
+    leave_time = millis();
   }  
+
+  react = leave_time - start_time;
+  Serial.print("\nReaction time: ");
+  if (react > 1 && react < MAX_REACT) {
+    Serial.print(react);
+    Serial.println(" ms.");
+  } else if (react >= MAX_REACT) {
+    Serial.println("TIME-OUT");
+  } else {
+    Serial.println("JUMP");
+  }
+
   delay(3000);
 
   return 0;
