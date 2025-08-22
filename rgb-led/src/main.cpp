@@ -1,6 +1,6 @@
 #include <Arduino.h>
 
-void set_colour(const int8_t r, const int8_t g, const int8_t b);
+void set_colour(const uint8_t r, const uint8_t g, const uint8_t b);
 
 const int8_t sens = A0;
 const int8_t red = 3;
@@ -28,7 +28,7 @@ void loop() {
   }
 }
 
-void set_colour(const int8_t r, const int8_t g, const int8_t b)
+void set_colour(const uint8_t r, const uint8_t g, const uint8_t b)
 {
   analogWrite(red, r);
   analogWrite(green, g);
