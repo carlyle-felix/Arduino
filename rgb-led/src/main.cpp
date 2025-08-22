@@ -16,9 +16,9 @@ void setup() {
 void loop() {
 
   set_colour(0, 0, 0);
-  //digitalWrite(led, HIGH);
+
   if (analogRead(sens) < 5) {
-    //digitalWrite(led, LOW);
+
     set_colour(255, 20, 147);
     delay(1000);
     set_colour(173, 216, 230);
