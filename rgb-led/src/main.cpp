@@ -2,7 +2,7 @@
 
 void set_colour(const int8_t r, const int8_t g, const int8_t b);
 
-const int8_t ph = A0;
+const int8_t sens = A0;
 const int8_t red = 3;
 const int8_t green = 6;
 const int8_t blue = 9;
@@ -17,7 +17,7 @@ void loop() {
 
   set_colour(0, 0, 0);
   //digitalWrite(led, HIGH);
-  if (analogRead(ph) < 5) {
+  if (analogRead(sens) < 5) {
     //digitalWrite(led, LOW);
     set_colour(255, 20, 147);
     delay(1000);
