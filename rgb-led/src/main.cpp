@@ -2,10 +2,10 @@
 
 void set_colour(const uint8_t r, const uint8_t g, const uint8_t b);
 
-const int8_t sens = A0;
-const int8_t red = 3;
-const int8_t green = 6;
-const int8_t blue = 9;
+const int16_t sens = A0;
+const uint8_t red = 3;
+const uint8_t green = 6;
+const uint8_t blue = 9;
 
 void setup() {
   pinMode(red, OUTPUT);
